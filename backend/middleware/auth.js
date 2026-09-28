@@ -3,8 +3,34 @@
  * 驗證 JWT Token，實現 RBAC 權限控制
  */
 const jwt = require('jsonwebtoken')
+const crypto = require('crypto')
 
-const SECRET_KEY = process.env.JWT_SECRET || 'bughub_secret_key'
+/**
+ * 解析 JWT 密鑰。
+ *
+ * 原實現將 'bughub_secret_key' 硬編碼為默認值：任何未配置環境變量的部署
+ * 都會使用這個公開可知的密鑰，攻擊者可據此偽造任意用戶的 token。
+ * 現改為——生產環境強制要求顯式配置，否則拒絕啟動；
+ * 開發環境生成一次性隨機密鑰并打印警告。
+ */
+function resolveSecretKey() {
+  if (process.env.JWT_SECRET) {
+    return process.env.JWT_SECRET
+  }
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error(
+      '安全錯誤：生產環境必須通過環境變量 JWT_SECRET 顯式配置密鑰，' +
+      '拒絕以不安全的默認值啟動。'
+    )
+  }
+  console.warn(
+    '[BugHub] 警告：未設置 JWT_SECRET，已生成隨機臨時密鑰，' +
+    '服務重啟後所有已簽發 token 將失效。'
+  )
+  return crypto.randomBytes(32).toString('hex')
+}
+
+const SECRET_KEY = resolveSecretKey()
 
 /**
  * JWT 認證中間件

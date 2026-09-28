@@ -3,14 +3,14 @@
   包含頂部導航、主內容區域和底部信息
 -->
 <template>
-  <div id="bughub-app" :class="{ 'dark-mode': isDark }">
+  <div id="bughub-app" :class="{ dark: isDark }">
     <el-container>
       <el-header>
         <div class="logo">BugHub</div>
-        <el-menu mode="horizontal" :default-active="activeMenu">
-          <el-menu-item index="home">首頁</el-menu-item>
-          <el-menu-item index="report">提交報告</el-menu-item>
-          <el-menu-item index="dashboard">數據看板</el-menu-item>
+        <el-menu mode="horizontal" :default-active="route.path" router>
+          <el-menu-item index="/home">首頁</el-menu-item>
+          <el-menu-item index="/report">提交報告</el-menu-item>
+          <el-menu-item index="/dashboard">數據看板</el-menu-item>
         </el-menu>
         <div class="header-actions">
           <el-switch v-model="isDark" @change="toggleTheme" />
@@ -34,13 +34,16 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const isDark = ref(false)
 const isLoggedIn = ref(false)
 const username = ref('用戶')
-const activeMenu = ref('home')
 
+// 根節點上同步 .dark 類，global.scss 中的暗黑變量定義在 :root / .dark 上
 const toggleTheme = () => {
   document.documentElement.classList.toggle('dark')
 }

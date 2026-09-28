@@ -8,7 +8,9 @@
 const config = {
   port: process.env.PORT || 8080,
   jwt: {
-    secret: process.env.JWT_SECRET || 'bughub_secret_key',
+    // 不再提供硬編碼默認值——密鑰統一由 middleware/auth.js 解析，
+    // 未配置時生產環境拒絕啟動、開發環境使用隨機臨時密鑰。
+    secret: process.env.JWT_SECRET,
     expiresIn: '7d'
   }
 }
