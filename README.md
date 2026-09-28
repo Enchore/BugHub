@@ -1,5 +1,8 @@
 # BugHub — 游戏硬件与软件缺陷报告社区平台
 
+[![CI](https://github.com/Enchore/BugHub/actions/workflows/ci.yml/badge.svg)](https://github.com/Enchore/BugHub/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 > Game Hardware & Software Bug Report Community | Vue 3 + Express
 
 ## 项目简介
