@@ -100,7 +100,7 @@ npm install
 # 必须配置 JWT 密钥，否则生产环境拒绝启动
 export JWT_SECRET="your-secret-key"
 
-npm start          # 或 npm run dev 使用 nodemon
+npm start          # 或 npm run dev 使用 Node 内置 --watch 热重载
 ```
 
 服务默认运行在 `http://localhost:8080`，健康检查接口为 `/api/health`。
