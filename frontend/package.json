@@ -12,7 +12,7 @@
     "axios": "^1.6.0",
     "echarts": "^6.1.0",
     "element-plus": "^2.5.0",
-    "markdown-it": "^14.0.0",
+    "markdown-it": "^14.3.3",
     "pinia": "^2.1.0",
     "vue": "^3.4.0",
     "vue-router": "^4.3.0"
